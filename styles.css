@@ -95,6 +95,7 @@ main {
     border: 1px solid #ddd;
     border-radius: 8px;
     transition: transform 0.2s;
+    text-overflow: ellipsis;
 }
 
 .box:hover {
