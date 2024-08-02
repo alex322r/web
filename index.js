@@ -1,5 +1,5 @@
 const $main = document.querySelector("main");
-const URL = "https://clipboard-app.onrender.com/api/texts";
+const URL = "https://alexisortiz.me/api/texts";
 const $input = document.querySelector("input");
 const $button = document.querySelector("button");
 
