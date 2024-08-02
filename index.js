@@ -34,7 +34,7 @@ const getData = async () => {
 };
 
 //const data = new Array(9).fill(0).map((_, i) => ({ id: 1, text: i }));
-const data = getData();
+const data = await getData();
 
 if (data) {
   data.reverse().map((texts) => {
