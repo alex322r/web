@@ -95,6 +95,11 @@ main {
     border: 1px solid #ddd;
     border-radius: 8px;
     transition: transform 0.2s;
+}
+
+p {
+    white-space: nowrap;
+    overflow: hidden;
     text-overflow: ellipsis;
 }
 
