@@ -1,5 +1,5 @@
 const $main = document.querySelector("main");
-const URL = "https://alexisortiz.me/api/texts";
+const URL = "https://www.alexisortiz.me/api/texts";
 const $input = document.querySelector("input");
 const $button = document.querySelector("button");
 
