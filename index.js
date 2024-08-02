@@ -8,22 +8,19 @@ const Tile = (text = "alex") => {
   const $text = document.createElement("p");
   const $icon = document.createElement("i");
 
-
   $icon.addEventListener("click", (e) => {
-    const text = e.target.previousSibling.textContent
-    navigator.clipboard.writeText(text)
-  })
+    const text = e.target.previousSibling.textContent;
+    navigator.clipboard.writeText(text);
+  });
 
-  $icon.classList.add("fa-regular")
-  $icon.classList.add("fa-copy")
+  $icon.classList.add("fa-regular");
+  $icon.classList.add("fa-copy");
   $box.classList.add("box");
   $text.textContent = text;
   $box.appendChild($text);
-  $box.appendChild($icon)
+  $box.appendChild($icon);
   return $box;
 };
-
-
 
 const getData = async () => {
   let json;
@@ -36,7 +33,8 @@ const getData = async () => {
   return json;
 };
 
-const data = await getData();
+//const data = new Array(9).fill(0).map((_, i) => ({ id: 1, text: i }));
+const data = getData();
 
 if (data) {
   data.reverse().map((texts) => {
@@ -73,6 +71,4 @@ $button.addEventListener("click", async (e) => {
   } catch (e) {
     console.log(e.message);
   }
-})
-
-
+});
