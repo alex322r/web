@@ -34,7 +34,7 @@ const getData = async () => {
 };
 
 //const data = new Array(9).fill(0).map((_, i) => ({ id: 1, text: i }));
-const data = await getData();
+let data = await getData();
 
 if (data) {
   data.reverse().map((texts) => {
@@ -45,7 +45,7 @@ if (data) {
 
 $button.addEventListener("click", async (e) => {
   e.preventDefault();
-  const inputText = $input.value;
+  const inputText = $input.value.trim();
   const id = crypto.randomUUID();
   if (inputText == "") return;
   try {
@@ -63,8 +63,10 @@ $button.addEventListener("click", async (e) => {
     });
     if (res.ok) {
       // Optionally, you can add the new tile immediately without refetching the data
+
+      $main.prepend(Tile(inputText));
+
       $input.value = ""; // Clear the input field
-      location.reload();
     } else {
       console.error("Error:", res.statusText);
     }
