@@ -10,8 +10,15 @@ const Tile = (text = "alex") => {
 
   $icon.addEventListener("click", (e) => {
     const text = e.target.previousSibling.textContent;
+    const pop = popUp("Texto copiado")
+    e.target.appendChild(pop)
+    setTimeout(() => {
+      e.target.removeChild(pop)
+    }, 1000)
     navigator.clipboard.writeText(text);
   });
+
+
 
   $icon.classList.add("fa-regular");
   $icon.classList.add("fa-copy");
@@ -21,6 +28,15 @@ const Tile = (text = "alex") => {
   $box.appendChild($icon);
   return $box;
 };
+
+const popUp = (text = "texto por defecto") => {
+  const $pop = document.createElement("div")
+  const $text = document.createElement("span")
+  $text.innerText = text
+  $pop.classList.add("pop")
+  $pop.appendChild($text)
+  return $pop
+}
 
 const getData = async () => {
   let json;
