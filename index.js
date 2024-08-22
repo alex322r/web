@@ -1,8 +1,11 @@
+
+
 const $main = document.querySelector("main");
-const URL = "https://www.alexisortiz.me/api/texts";
+//const URL = "https://www.alexisortiz.me/api/texts";
+const URL = "http://localhost:5050/api/texts"
 const $input = document.querySelector("input");
 const $button = document.querySelector("button");
-
+const socket = io("http://localhost:5050");
 const Tile = (text = "alex") => {
   const $box = document.createElement("div");
   const $text = document.createElement("p");
@@ -17,6 +20,9 @@ const Tile = (text = "alex") => {
     }, 1000)
     navigator.clipboard.writeText(text);
   });
+
+
+
 
 
 
@@ -49,6 +55,10 @@ const getData = async () => {
   return json;
 };
 
+socket.on("res", (id, text) => {
+  $main.prepend(Tile(text))
+})
+
 //const data = new Array(9).fill(0).map((_, i) => ({ id: 1, text: i }));
 let data = await getData();
 
@@ -64,8 +74,9 @@ $button.addEventListener("click", async (e) => {
   const inputText = $input.value.trim();
   const id = crypto.randomUUID();
   if (inputText == "") return;
+  let res;
   try {
-    const res = await fetch(URL, {
+    res = await fetch(URL, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -77,16 +88,14 @@ $button.addEventListener("click", async (e) => {
       referrerPolicy: "no-referrer",
       body: JSON.stringify({ id, text: inputText }),
     });
-    if (res.ok) {
-      // Optionally, you can add the new tile immediately without refetching the data
-
-      $main.prepend(Tile(inputText));
-
-      $input.value = ""; // Clear the input field
-    } else {
-      console.error("Error:", res.statusText);
-    }
-  } catch (e) {
-    console.log(e.message);
+  } catch (err) {
+    console.error(err.msg)
   }
-});
+  $input.value = "";
+
+  if (res) {
+    socket.emit("text", id, inputText)
+    console.log("hola")
+  }
+
+})
